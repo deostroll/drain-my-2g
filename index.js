@@ -8,7 +8,7 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.end('Hello World...');
 });
-var length = 1024 * 1024 * 10;
+var length = 1024 * 1024 * 2;
 var buf = Buffer.alloc(length, 'a');
 
 app.get('/drain', (_, res) => {
