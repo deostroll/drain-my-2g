@@ -11,10 +11,15 @@
       $(function(){
         $(document.body).append('<p>Welcome...</p>')
         .append('<span>0</span> MB drained...');
-
+        var div = $(document.body).append('<div></div>');
         var timeout = 30000;
-
+        var log = {
+          write: function(msg) {
+            div.append($('<p/>').html(msg));
+          }
+        }
         function drain() {
+          // log.write('http request...')
           return $.ajax({
             url: '/drain'
           });
@@ -30,9 +35,10 @@
             console.log('counter:', counter);
             span.html(counter / length);
             setTimeout(run, timeout);
-          }, function(){
+          }, function(e){
             span.html('Error...');
             console.error('Error...');
+            log.write('Err: ' + e);
             setTimeout(run, timeout);
           });
         };
